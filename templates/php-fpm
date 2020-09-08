@@ -1,0 +1,8 @@
+# {{ template_destpath }}
+# {{ ansible_managed }}
+
+check process php-fpm with pidfile /run/php-fpm/php-fpm.pid
+  group root
+  start program = "/bin/systemctl start php-fpm"
+  stop program = "/bin/systemctl stop php-fpm"
+  if failed unixsocket /var/run/php-fpm/wordpress.sock for 2 cycles then restart

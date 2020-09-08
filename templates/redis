@@ -1,0 +1,8 @@
+# {{ template_destpath }}
+# {{ ansible_managed }}
+
+check process redis with pidfile /var/run/redis/redis.pid
+  group redis
+  start program = "/bin/systemctl start redis"
+  stop program = "/bin/systemctl stop redis"
+  if failed port 6379 protocol redis then restart

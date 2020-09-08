@@ -1,0 +1,9 @@
+# {{ template_destpath }}
+# {{ ansible_managed }}
+
+check process nginx with pidfile /var/run/nginx.pid
+  group nginx
+  start program = "/bin/systemctl start nginx"
+  stop program = "/bin/systemctl start nginx"
+  if failed port 80 for 2 cycles then restart
+  if failed port 443 for 2 cycles then restart
