@@ -1,1 +1,28 @@
 # tasks/main.yml
+
+- name: Install epel-release packages
+  package:
+    name: epel-release
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Install Monit packages
+  package:
+    name: monit
+    state: present
+
+- name: Start and enable Monit service
+  service:
+    name: monit
+    state: started
+    enabled: true
+
+- name: Install Configs
+  copy:
+    src: httpd
+    dest: /etc/monit.d/httpd
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - restart monit
