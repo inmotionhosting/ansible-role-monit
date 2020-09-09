@@ -1,5 +1,8 @@
 # tasks/main.yml
 
+- name: Include facts
+  include: facts.yml
+
 - name: Install epel-release packages
   package:
     name: epel-release
@@ -20,7 +23,7 @@
 - name: Install Configs
   template:
     src: httpd
-    dest: /etc/monit.d/httpd
+    dest: "{{monit_config_dir}}/httpd"
     owner: root
     group: root
     mode: "0644"

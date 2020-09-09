@@ -1,0 +1,3 @@
+# vars/Debian.yml
+
+monit_config_dir: "/etc/monit/conf.d/"
