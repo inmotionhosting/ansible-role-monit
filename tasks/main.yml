@@ -9,7 +9,7 @@
     state: present
   when: ansible_os_family == "RedHat"
 
-- name: (Debian 10) Add PHP repo
+- name: (Debian 10) Add backports repo
   apt_repository:
     repo: "deb http://deb.debian.org/debian buster-backports main"
     state: present
@@ -32,10 +32,11 @@
 
 - name: Install Configs
   template:
-    src: httpd
-    dest: "{{monit_config_dir}}/httpd"
+    src: services/{{ item }}
+    dest: "{{ monit_config_dir }}/{{ item }}"
     owner: root
     group: root
     mode: "0644"
+  with_items: "{{ monitored_services }}"
   notify:
     - restart monit
