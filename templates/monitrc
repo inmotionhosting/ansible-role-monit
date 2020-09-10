@@ -1,5 +1,12 @@
 set daemon  30              # check services at 30 seconds intervals
+
+{% if ansible_os_family == "Debian"
+  and (ansible_distribution_major_version == "9"
+  or ansible_distribution_major_version == "16.04") %}
+set logfile /var/log/monit.log
+{% else %}
 set log /var/log/monit.log
+{% endif %}
 set eventqueue
     basedir /var/monit      # set the base directory where events will be stored
     slots 100               # optionally limit the queue size
