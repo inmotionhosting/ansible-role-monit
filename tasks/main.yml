@@ -3,7 +3,7 @@
 - name: Include facts
   include: facts.yml
 
-- name: Install epel-release packages
+- name: (CentOS) Install epel-release packages
   package:
     name: epel-release
     state: present
@@ -30,7 +30,17 @@
     state: started
     enabled: true
 
-- name: Install Configs
+- name: Install Monit config
+  template:
+    src: monitrc
+    dest: "{{ monit_config_dir }}/monitrc"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - restart monit
+
+- name: Install service configs
   template:
     src: services/{{ item }}
     dest: "{{ monit_config_dir }}/{{ item }}"
