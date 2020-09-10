@@ -7,6 +7,3 @@ monitored_services:
   - nginx
   - php-fpm
   - redis
-
-# probably have some sanity checking in that it won't include the
-# monitor file if a variable doesn't exist unless an override is included
