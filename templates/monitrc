@@ -1,5 +1,4 @@
 set daemon  30              # check services at 30 seconds intervals
-
 {% if ansible_os_family == "Debian"
   and (ansible_distribution_major_version == "9"
   or ansible_distribution_version == "16.04") %}
