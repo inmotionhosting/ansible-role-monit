@@ -1,9 +1,9 @@
 # {{ template_destpath }}
 # {{ ansible_managed }}
 
-check process apache with pidfile /var/run/httpd/httpd.pid
+check process apache with pidfile /var/run/{{ apache_daemon }}/{{ apache_daemon }}.pid
   group root
-  start program = "/bin/systemctl start httpd"
-  stop program = "/bin/systemctl stop httpd"
-  if failed port 8080 for 2 cycles then restart
-  if failed port 8443 for 2 cycles then restart
+  start program = "/bin/systemctl start {{ apache_daemon }}"
+  stop program = "/bin/systemctl stop {{ apache_daemon }}"
+  if failed port {{ apache_port_http }} for 2 cycles then restart
+  if failed port {{ apache_port_https }} for 2 cycles then restart

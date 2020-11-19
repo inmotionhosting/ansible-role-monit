@@ -28,16 +28,11 @@
     or monitored_services == 0
 
 # Remove service from list of monitored_services if not part of playbook
-- name: Check monitored services
+- name: Remove nonexistent services
   set_fact:
-    monitored_services: "{{ monitored_services | difference([item.daemon_name]) }}"
+    monitored_services: "{{ monitored_services | difference([item]) }}"
   when: >-
     item.var_name not in vars
     or lookup('vars', item.var_name) is not string
     or lookup('vars', item.var_name) == 0
-  loop:
-    - { var_name: 'apache_daemon',  daemon_name: 'httpd'   }
-    - { var_name: 'mysql_daemon',   daemon_name: 'mariadb' }
-    - { var_name: 'nginx_daemon',   daemon_name: 'nginx'   }
-    - { var_name: 'php_fpm_daemon', daemon_name: 'php-fpm' }
-    - { var_name: 'redis_daemon',   daemon_name: 'redis'   }
+  loop: "{{ monitored_services }}"

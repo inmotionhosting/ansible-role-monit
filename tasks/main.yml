@@ -42,8 +42,8 @@
 
 - name: Install service configs
   template:
-    src: services/{{ item }}
-    dest: "{{ monit_config_dir }}/{{ item }}"
+    src: services/{{ item.daemon_name }}
+    dest: "{{ monit_config_dir }}/{{ item.daemon_name }}"
     owner: root
     group: root
     mode: "0644"

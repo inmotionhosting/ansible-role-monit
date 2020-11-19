@@ -2,8 +2,8 @@
 
 monit_config_dir: "/etc/monit.d/"
 monitored_services:
-  - httpd
-  - mariadb
-  - nginx
-  - php-fpm
-  - redis
+  - { var_name: 'apache_daemon',  daemon_name: 'httpd'   }
+  - { var_name: 'mysql_daemon',   daemon_name: 'mariadb' }
+  - { var_name: 'nginx_daemon',   daemon_name: 'nginx'   }
+  - { var_name: 'php_fpm_daemon', daemon_name: 'php-fpm' }
+  - { var_name: 'redis_daemon',   daemon_name: 'redis'   }

@@ -1,8 +1,8 @@
 # {{ template_destpath }}
 # {{ ansible_managed }}
 
-check process mariadb with pidfile /var/run/mariadb/mariadb.pid
+check process mariadb with pidfile /var/run/{{ mysql_daemon }}//{{ mysql_daemon }}.pid
   group mysql
-  start program = "/bin/systemctl start mariadb"
-  stop program = "/bin/systemctl stop mariadb"
+  start program = "/bin/systemctl start {{ mysql_daemon }}"
+  stop program = "/bin/systemctl stop {{ mysql_daemon }}"
   if failed port 3306 protocol mysql timeout 15 seconds then restart
