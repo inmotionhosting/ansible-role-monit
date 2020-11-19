@@ -4,42 +4,40 @@
   include_vars: Debian.yml
   when: ansible_os_family == "Debian"
 
-# Check Apache
-- name: Check Apache as a monitored service
-  set_fact:
-    monitored_services: "{{ monitored_services | difference(['httpd']) }}"
-  when: >-
-    apache_daemon is not string
-    or apache_daemon == 0
+# Check required variables for valid values
+- name: Check monit_config_dir
+  fail:
+    msg: |
+      Invalid value for 'monit_config_dir': {{ monit_config_dir }}
 
-#Check MySQL
-- name: Check MySQL as a monitored service
-  set_fact:
-    monitored_services: "{{ monitored_services | difference(['mariadb']) }}"
+      Supported types  : String
+      Supported values : Any non-null string
   when: >-
-    mysql_daemon is not string
-    or mysql_daemon == 0
+    monit_config_dir is not string
+    or monit_config_dir == 0
 
-# Check nginx
-- name: Check Nginx as a monitored service
-  set_fact:
-    monitored_services: "{{ monitored_services | difference(['nginx']) }}"
-  when: >-
-    nginx_daemon is not string
-    or nginx_daemon == 0
+- name: Check monitored_services
+  fail:
+    msg: |
+      Invalid value for 'monitored_services': {{ monitored_services }}
 
-# Check PHP
-- name: Check PHP as a monitored service
-  set_fact:
-    monitored_services: "{{ monitored_services | difference(['php-fpm']) }}"
+      Supported types  : List, String
+      Supported values : Any non-null list or string
   when: >-
-    php_fpm_daemon is not string
-    or php_fpm_daemon == 0
+    monitored_services is not iterable
+    or monitored_services == 0
 
-# Check Redis
-- name: Check redis_daemon as a monitored service
+# Remove service from list of monitored_services if not part of playbook
+- name: Check monitored services
   set_fact:
-    monitored_services: "{{ monitored_services | difference(['redis']) }}"
+    monitored_services: "{{ monitored_services | difference([item.daemon_name]) }}"
   when: >-
-    redis_daemon is not string
-    or redis_daemon == 0
+    item.var_name not in vars
+    or lookup('vars', item.var_name) is not string
+    or lookup('vars', item.var_name) == 0
+  loop:
+    - { var_name: 'apache_daemon',  daemon_name: 'httpd'   }
+    - { var_name: 'mysql_daemon',   daemon_name: 'mariadb' }
+    - { var_name: 'nginx_daemon',   daemon_name: 'nginx'   }
+    - { var_name: 'php_fpm_daemon', daemon_name: 'php-fpm' }
+    - { var_name: 'redis_daemon',   daemon_name: 'redis'   }
