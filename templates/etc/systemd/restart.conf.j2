@@ -7,6 +7,7 @@ ExecStart=
 ExecStart={{ monit_executable_path }} -I
 ExecStop={{ monit_executable_path }} quit
 ExecReload={{ monit_executable_path }} reload
+RemainAfterExit=no
 
 # Under what condition does the service restart (always, on-failure, on-abnormal)
 Restart={{ systemd_restart_setting }}
