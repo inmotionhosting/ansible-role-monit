@@ -19,7 +19,6 @@ RestartSec=5
 StartLimitInterval=500
 StartLimitBurst=5
 {% endif %}
-
 {% if systemd_version is defined and systemd_version is version('230', '>=') %}
 [Unit]
 Description=Monit, proactive monitoring utility for unix systems
@@ -28,5 +27,6 @@ After=network.target
 StartLimitIntervalSec=500
 StartLimitBurst=5
 {% endif %}
+
 [Install]
 WantedBy=multi-user.target
