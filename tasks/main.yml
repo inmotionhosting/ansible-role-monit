@@ -24,6 +24,13 @@
     name: monit
     state: present
 
+- name: Include systemd restart configuation
+  include: systemd.yml
+  when: >-
+    ( monit_systemd_restart|default(False)
+    or systemd_restart|default(False) )
+    and systemd_restart_setting is defined
+
 - name: Start and enable Monit service
   service:
     name: monit
@@ -36,9 +43,8 @@
     dest: "{{ monit_config_dir }}/monitrc"
     owner: root
     group: root
-    mode: "0644"
-  notify:
-    - restart monit
+    mode: 0644
+  notify: restart monit
 
 - name: Install service configs
   template:
@@ -46,7 +52,6 @@
     dest: "{{ monit_config_dir }}/{{ item.daemon_name }}"
     owner: root
     group: root
-    mode: "0644"
+    mode: 0644
   with_items: "{{ monitored_services }}"
-  notify:
-    - restart monit
+  notify: restart monit

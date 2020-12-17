@@ -1,0 +1,32 @@
+# {{ template_destpath }}
+# {{ ansible_managed }}
+
+[Service]
+Type=simple
+ExecStart=
+ExecStart={{ monit_executable_path }} -I
+ExecStop={{ monit_executable_path }} quit
+ExecReload={{ monit_executable_path }} reload
+
+# Under what condition does the service restart (always, on-failure, on-abnormal)
+Restart={{ systemd_restart_setting }}
+
+# Sleep before restart
+RestartSec=5
+
+{% if systemd_version is defined and systemd_version is version('230', '<') %}
+# Attempts restart no more than StartLimitBurst times in StartLimitInterval seconds
+StartLimitInterval=500
+StartLimitBurst=5
+{% endif %}
+
+{% if systemd_version is defined and systemd_version is version('230', '>=') %}
+[Unit]
+Description=Monit, proactive monitoring utility for unix systems
+After=network.target
+# Attempts restart no more than StartLimitBurst times in StartLimitIntervalSec seconds
+StartLimitIntervalSec=500
+StartLimitBurst=5
+{% endif %}
+[Install]
+WantedBy=multi-user.target

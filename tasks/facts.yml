@@ -36,3 +36,23 @@
     or lookup('vars', item.var_name) is not string
     or lookup('vars', item.var_name) == 0
   loop: "{{ monitored_services }}"
+
+- name: Check variable 'systemd_restart_setting'
+  fail:
+    msg: |
+      Invalid value for variable 'systemd_restart_setting': '{{ systemd_restart_setting }}'
+
+      Supported types  : String
+      Supported values : "no", "on-success", "on-failure", "on-abnormal",
+                         "on-watchdog", "on-abort", "always"
+  failed_when: >-
+    systemd_restart_setting not in
+    ['no', 'on-success', 'on-failure', 'on-abnormal',
+    'on-watchdog', 'on-abort', 'always']
+    or systemd_restart_setting is not string
+    or systemd_restart_setting == 0
+  when: >-
+    (monit_systemd_restart is defined
+    and monit_systemd_restart)
+    or (systemd_restart is defined
+    and systemd_restart)
