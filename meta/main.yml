@@ -1,0 +1,33 @@
+---
+galaxy_info:
+  role_name: monit
+  author: inmotionhosting
+  description: Modular Ansible Role for deploying and configuring Monit
+  company: "InMotion Hosting"
+  license: GPLv3
+  min_ansible_version: 2.9
+  collections:
+  - ansible.posix
+  - community.general
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
+
+  galaxy_tags:
+    - web
+    - wordpress
+    - ultrastack
+
+dependencies: []
