@@ -1,7 +1,7 @@
 # {{ template_destpath }}
 # {{ ansible_managed }}
 
-check process mariadb with pidfile /var/run/{{ mysql_daemon }}//{{ mysql_daemon }}.pid
+check process mariadb matching "mariadbd"
   group mysql
   start program = "/bin/systemctl start {{ mysql_daemon }}"
   stop program = "/bin/systemctl stop {{ mysql_daemon }}"
