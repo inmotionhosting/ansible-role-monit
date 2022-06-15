@@ -1,7 +1,7 @@
 # {{ template_destpath }}
 # {{ ansible_managed }}
 
-check process redis with pidfile /var/run/{{ redis_daemon }}/{{ redis_daemon }}.pid
+check process redis matching "redis"
   group redis
   start program = "/bin/systemctl start {{ redis_daemon }}"
   stop program = "/bin/systemctl stop {{ redis_daemon }}"
