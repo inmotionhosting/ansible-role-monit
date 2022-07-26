@@ -23,6 +23,11 @@
   package:
     name: monit
     state: present
+    
+- name: Install Monit Prometheus Exporter
+  package:
+    name: imh-monit-prometheus
+    state: present
 
 - name: Include systemd restart configuation
   include: systemd.yml
