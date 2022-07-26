@@ -14,3 +14,4 @@ monitored_services:
 # Enable systemd to restart monit if monit fails
 monit_systemd_restart: true
 systemd_restart_setting: on-failure
+monit_prometheus_exporter: false
