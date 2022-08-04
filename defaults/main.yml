@@ -9,7 +9,9 @@ monitored_services:
   - { var_name: 'nginx_daemon',   daemon_name: 'nginx'   }
   - { var_name: 'php_fpm_daemon', daemon_name: 'php-fpm' }
   - { var_name: 'redis_daemon',   daemon_name: 'redis'   }
+  - { var_name: 'network',        daemon_name: 'network' }
 
 # Enable systemd to restart monit if monit fails
 monit_systemd_restart: true
 systemd_restart_setting: on-failure
+monit_prometheus_exporter: false
