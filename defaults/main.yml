@@ -3,6 +3,7 @@
 monit_daemon: monit
 monit_executable_path: /usr/bin/monit
 monit_config_dir: "/etc/monit.d/"
+monit_config_file: "/etc/monitrc"
 monitored_services:
   - { var_name: 'apache_daemon',  daemon_name: 'httpd'   }
   - { var_name: 'mysql_daemon',   daemon_name: 'mariadb' }

@@ -23,11 +23,6 @@
   package:
     name: monit
     state: present
-    
-- name: Install Monit Prometheus Exporter
-  package:
-    name: imh-monit-prometheus
-    state: present
 
 - name: Include systemd restart configuation
   include: systemd.yml
@@ -44,11 +39,11 @@
 
 - name: Install Monit config
   template:
-    src: monitrc
-    dest: "{{ monit_config_dir }}/monitrc"
+    src: etc/monitrc
+    dest: "{{ monit_config_file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: 0600
   notify: restart monit
 
 - name: Install service configs
