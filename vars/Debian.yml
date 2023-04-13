@@ -1,3 +1,4 @@
 # vars/Debian.yml
 
 monit_config_dir: "/etc/monit/conf.d/"
+monit_config_file: "/etc/monit.d/monitrc"

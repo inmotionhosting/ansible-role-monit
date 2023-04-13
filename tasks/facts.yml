@@ -16,6 +16,17 @@
     monit_config_dir is not string
     or monit_config_dir == 0
 
+- name: Check monit_config_file
+  fail:
+    msg: |
+      Invalid value for 'monit_config_file': {{ monit_config_file }}
+
+      Supported types  : String
+      Supported values : Any non-null string
+  when: >-
+    monit_config_file is not string
+    or monit_config_file == 0
+
 - name: Check monitored_services
   fail:
     msg: |

@@ -3,15 +3,14 @@
 monit_daemon: monit
 monit_executable_path: /usr/bin/monit
 monit_config_dir: "/etc/monit.d/"
+monit_config_file: "/etc/monitrc"
 monitored_services:
   - { var_name: 'apache_daemon',  daemon_name: 'httpd'   }
   - { var_name: 'mysql_daemon',   daemon_name: 'mariadb' }
   - { var_name: 'nginx_daemon',   daemon_name: 'nginx'   }
   - { var_name: 'php_fpm_daemon', daemon_name: 'php-fpm' }
   - { var_name: 'redis_daemon',   daemon_name: 'redis'   }
-  - { var_name: 'network',        daemon_name: 'network' }
 
 # Enable systemd to restart monit if monit fails
 monit_systemd_restart: true
 systemd_restart_setting: on-failure
-monit_prometheus_exporter: false
