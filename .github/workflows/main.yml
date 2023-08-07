@@ -2,11 +2,11 @@ name: Ansible Molecule Pipeline
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
-    branches: [master]
+    branches: [main]
 
 env:
   PY_COLORS: '1'
