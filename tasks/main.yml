@@ -44,7 +44,7 @@
     owner: root
     group: root
     mode: "0600"
-  notify: restart monit
+  notify: Restart monit
 
 - name: Install service configs
   ansible.builtin.template:
@@ -54,4 +54,4 @@
     group: root
     mode: "0644"
   with_items: "{{ monitored_services }}"
-  notify: restart monit
+  notify: Restart monit
