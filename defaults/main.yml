@@ -5,11 +5,16 @@ monit_executable_path: /usr/bin/monit
 monit_config_dir: "/etc/monit.d/"
 monit_config_file: "/etc/monitrc"
 monitored_services:
-  - { var_name: 'apache_daemon',  daemon_name: 'httpd'   }
-  - { var_name: 'mysql_daemon',   daemon_name: 'mariadb' }
-  - { var_name: 'nginx_daemon',   daemon_name: 'nginx'   }
-  - { var_name: 'php_fpm_daemon', daemon_name: 'php-fpm' }
-  - { var_name: 'redis_daemon',   daemon_name: 'redis'   }
+  - var_name: apache_daemon
+    daemon_name: httpd
+  - var_name: mysql_daemon
+    daemon_name: mariadb
+  - var_name: nginx_daemon
+    daemon_name: nginx
+  - var_name: php_fpm_daemon
+    daemon_name: php-fpm
+  - var_name: redis_daemon
+    daemon_name: redis
 
 # Enable systemd to restart monit if monit fails
 monit_systemd_restart: true

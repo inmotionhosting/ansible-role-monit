@@ -1,16 +1,16 @@
 # tasks/main.yml
 
 - name: Include facts
-  include: facts.yml
+  ansible.builtin.include_tasks: facts.yml
 
 - name: (CentOS) Install epel-release packages
-  package:
+  ansible.builtin.package:
     name: epel-release
     state: present
   when: ansible_os_family == "RedHat"
 
 - name: (Debian 10) Add backports repo
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb http://deb.debian.org/debian buster-backports main"
     state: present
     filename: stretch
@@ -20,38 +20,38 @@
     - ansible_distribution_major_version == "10"
 
 - name: Install Monit packages
-  package:
+  ansible.builtin.package:
     name: monit
     state: present
 
 - name: Include systemd restart configuation
-  include: systemd.yml
+  ansible.builtin.include_tasks: systemd.yml
   when: >-
     ( monit_systemd_restart|default(False)
     or systemd_restart|default(False) )
     and systemd_restart_setting is defined
 
 - name: Start and enable Monit service
-  service:
+  ansible.builtin.service:
     name: monit
     state: started
     enabled: true
 
 - name: Install Monit config
-  template:
+  ansible.builtin.template:
     src: etc/monitrc
     dest: "{{ monit_config_file }}"
     owner: root
     group: root
-    mode: 0600
-  notify: restart monit
+    mode: "0600"
+  notify: Restart monit
 
 - name: Install service configs
-  template:
+  ansible.builtin.template:
     src: services/{{ item.daemon_name }}
     dest: "{{ monit_config_dir }}/{{ item.daemon_name }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   with_items: "{{ monitored_services }}"
-  notify: restart monit
+  notify: Restart monit

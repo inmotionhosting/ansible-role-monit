@@ -1,12 +1,12 @@
 # tasks/facts.yml
 
 - name: Include os_family vars
-  include_vars: Debian.yml
+  ansible.builtin.include_vars: Debian.yml
   when: ansible_os_family == "Debian"
 
 # Check required variables for valid values
 - name: Check monit_config_dir
-  fail:
+  ansible.builtin.fail:
     msg: |
       Invalid value for 'monit_config_dir': {{ monit_config_dir }}
 
@@ -17,7 +17,7 @@
     or monit_config_dir == 0
 
 - name: Check monit_config_file
-  fail:
+  ansible.builtin.fail:
     msg: |
       Invalid value for 'monit_config_file': {{ monit_config_file }}
 
@@ -28,7 +28,7 @@
     or monit_config_file == 0
 
 - name: Check monitored_services
-  fail:
+  ansible.builtin.fail:
     msg: |
       Invalid value for 'monitored_services': {{ monitored_services }}
 
@@ -40,7 +40,7 @@
 
 # Remove service from list of monitored_services if not part of playbook
 - name: Remove nonexistent services
-  set_fact:
+  ansible.builtin.set_fact:
     monitored_services: "{{ monitored_services | difference([item]) }}"
   when: >-
     item.var_name not in vars
@@ -49,7 +49,7 @@
   loop: "{{ monitored_services }}"
 
 - name: Check variable 'systemd_restart_setting'
-  fail:
+  ansible.builtin.fail:
     msg: |
       Invalid value for variable 'systemd_restart_setting': '{{ systemd_restart_setting }}'
 
