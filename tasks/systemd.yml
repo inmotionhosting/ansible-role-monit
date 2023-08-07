@@ -34,7 +34,7 @@
     mode: "0750"
 
 - name: Create service file
-  ansible.builtintemplate:
+  ansible.builtin.template:
     src: etc/systemd/restart.conf.j2
     dest: /etc/systemd/system/{{ monit_daemon }}.service.d/restart.conf
     owner: root
