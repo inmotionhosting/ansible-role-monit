@@ -1,5 +1,7 @@
 ![Ansible Molecule Pipeline](https://github.com/inmotionhosting/ansible-role-monit/actions/workflows/main.yml/badge.svg) [![GPL-3.0 License](https://img.shields.io/github/license/respheal/monit.svg?color=blue)](https://github.com/respheal/monit/blob/master/LICENSE)
 
+![InMotion Hosting Ultrastack](https://www.inmotionhosting.com/wp-content/uploads/2024/01/ultrastack-logo-black-vertical.png)
+
 # Ansible Role: Monit
 
 Modular Ansible Role for deploying and configuring Monit
