@@ -5,4 +5,4 @@ check process mariadb matching "mariadbd"
   group mysql
   start program = "/bin/systemctl start {{ mysql_daemon }}"
   stop program = "/bin/systemctl stop {{ mysql_daemon }}"
-  if failed port 3306 protocol mysql timeout 15 seconds then restart
+  if failed port 3306 protocol mysql timeout 15 seconds for 3 cycles then restart
